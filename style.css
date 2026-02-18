@@ -28,6 +28,7 @@
   --spacing-md: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
   --spacing-lg: clamp(1.5rem, 1.3rem + 1vw, 2.5rem);
   --spacing-xl: clamp(2rem, 1.7rem + 1.5vw, 3.5rem);
+  --spacing-xl2: clamp(10rem, 8rem + 7vw, 9rem);
 
   /* Layout */
   --container-width: min(1200px, 95%);
@@ -42,6 +43,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -79,68 +84,174 @@ a:hover {
   overflow: hidden;
 }
 
-/* Header */
-header {
+img {
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+img:hover {
+  transform: translateY(-2px);
+}
+
+/* Navbar Section */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--color-primary);
   color: var(--color-secondary);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
 }
 
 .site-title-wrapper {
-  margin-bottom: var(--spacing-md);
+  width: var(--spacing-xl2);
+  margin: var(--spacing-md);
 }
 
-.site-title {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  line-height: 1.2;
-  margin-bottom: var(--spacing-xs);
+/* From Uiverse.io by vinodjangid07 */
+/* 1. Checkbox Control (disembunyikan) */
+#checkbox {
+  display: none;
 }
 
-.site-subtitle {
-  font-size: var(--font-size-sm);
-  opacity: 0.9;
-  font-style: italic;
-  margin-left: var(--spacing-sm);
-}
-
-/* Navigation */
-nav ul {
-  list-style: none;
+/* 2. Hamburger Menu */
+.toggle {
+  position: relative;
+  top: -30px;
+  right: 20px;
+  width: 23px;
+  height: 30px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition-duration: 0.5s;
+  z-index: 99999;
 }
 
-nav a {
-  color: var(--color-secondary);
+.bars {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-danger);
+  border-radius: 4px;
+}
+
+#bar2 {
+  transition-duration: 0.8s;
+}
+
+#bar1,
+#bar3 {
+  width: 70%;
+}
+
+#checkbox:checked + .toggle .bars {
+  position: absolute;
+  transition-duration: 0.5s;
+}
+
+#checkbox:checked + .toggle #bar2 {
+  transform: scaleX(0);
+  transition-duration: 0.5s;
+}
+
+#checkbox:checked + .toggle #bar1 {
+  width: 100%;
+  transform: rotate(45deg);
+  transition-duration: 0.5s;
+}
+
+#checkbox:checked + .toggle #bar3 {
+  width: 100%;
+  transform: rotate(-45deg);
+  transition-duration: 0.5s;
+}
+
+#checkbox:checked + .toggle {
+  transition-duration: 0.5s;
+  transform: rotate(180deg);
+}
+
+/* Munculkan Menu */
+#checkbox:checked ~ .navbar-nav {
+  right: 0;
+}
+
+/* 3. Menu Navigasi (Mobile-First) */
+.navbar .navbar-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 200px;
+  height: 100vh;
+  background-color: var(--color-border);
+  transition: right 0.3s ease;
+  gap: var(--spacing-sm);
+  z-index: 9999;
+}
+
+.navbar-nav ul {
+  list-style: none;
+}
+
+.navbar-nav ul li {
+  /* Atas: 20px, Kanan: 20px, Bawah: 20px, Kiri: 20px */
+  margin: 20px;
+}
+
+.navbar-nav ul li:first-child {
+  margin-top: 100px; /* Ubah angka ini sesuai keinginan Anda */
+}
+
+.navbar .navbar-nav.active {
+  right: 0rem;
+}
+
+.navbar .navbar-nav ul li a {
+  color: var(--color-text);
   text-transform: uppercase;
-  font-weight: 600;
   letter-spacing: 0.5px;
   padding: var(--spacing-xs) 0;
-  display: inline-block;
+  display: block;
+  transition: var(--color-warning) 0.3s ease;
   position: relative;
 }
 
-nav a::after {
+.navbar .navbar-nav a:hover {
+  color: var(--color-danger);
+}
+
+.navbar .navbar-nav a::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
-  background-color: var(--color-success);
-  transition: width var(--transition-speed) ease;
+  background-color: var(--color-danger);
+  /* transition: width var(--transition-speed) ease; */
+
+  /* Logika animasi */
+  transform: scaleX(0); /* Awalnya tidak terlihat */
+  transform-origin: bottom right; /* Menyusut ke kanan saat kursor pergi */
+  transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
-nav a:hover::after {
-  width: 100%;
+.navbar .navbar-nav a:hover::after {
+  /* width: 100%; */
+  transform: scaleX(1); /* Muncul penuh saat hover */
+  transform-origin: bottom left; /* Mulai muncul dari kiri saat hover */
 }
 
 /* Hero */
 .hero-image {
   height: 250px;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200")
       center/cover;
   display: flex;
@@ -294,7 +405,8 @@ article p {
 /* Schedule Section */
 .schedule-image {
   height: 150px;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800")
       center/cover;
   border-radius: var(--border-radius);
@@ -369,12 +481,49 @@ footer a:hover {
 
 /* Responsive Design */
 
-/* Tablet (768px+) */
-@media (min-width: 768px) {
-  nav ul {
+/* Tablet (650px+) */
+@media (min-width: 650px) {
+  .container {
+    overflow: visible;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+  .navbar .navbar-nav {
+    position: static;
+    height: auto;
+    width: auto;
+    background: none;
+    padding: 0;
+    right: auto;
+    left: auto;
+    transform: none;
+  }
+
+  .navbar .navbar-nav ul {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--spacing-md);
+    gap: var(--spacing-xs);
+    color: var(--color-secondary);
+  }
+
+  .navbar .navbar-nav ul li a {
+    color: var(--color-secondary);
+  }
+
+  .navbar .navbar-nav ul li a:hover {
+    color: var(--color-success);
+  }
+
+  .navbar .navbar-nav a::after {
+    background-color: var(--color-success);
+  }
+
+  .navbar-nav ul li:first-child {
+    margin-top: 20px; /* Ubah angka ini sesuai keinginan Anda */
   }
 
   .hero-image {
@@ -389,8 +538,8 @@ footer a:hover {
   }
 }
 
-/* Desktop (1024px+) */
-@media (min-width: 1024px) {
+/* Desktop (992px+) */
+@media (min-width: 992px) {
   .container {
     width: var(--container-width);
     margin: 0 auto;

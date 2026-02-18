@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -16,16 +16,21 @@
   </head>
   <body>
     <div class="container">
-      <!-- Header -->
-      <header>
+      <!-- Navbar Section Start -->
+      <nav class="navbar">
         <div class="site-title-wrapper">
-          <h1 class="site-title">Wart-OL</h1>
-          <p class="site-subtitle">
-            Warteg On-Line - Pesan Makanan Favorit Anda!
-          </p>
+          <img src="img/T2.png" alt="Wart-OL" class="Wart" />
         </div>
 
-        <nav>
+        <!-- From Uiverse.io by vinodjangid07 -->
+        <input type="checkbox" id="checkbox" />
+        <label for="checkbox" class="toggle">
+          <div class="bars" id="bar1"></div>
+          <div class="bars" id="bar2"></div>
+          <div class="bars" id="bar3"></div>
+        </label>
+
+        <nav class="navbar-nav">
           <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -34,7 +39,8 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-      </header>
+      </nav>
+      <!-- Navbar Section End -->
 
       <!-- Hero -->
       <div class="hero-image">
@@ -104,5 +110,7 @@
         <p>&copy; 2026 <a href="#">Muhammad Ridho</a>. All rights reserved.</p>
       </footer>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
